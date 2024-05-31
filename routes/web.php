@@ -27,6 +27,13 @@ Auth::routes(['register' => false]); //إيقاف عمل راوت تسجيل ا�
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
+
 //Route::get('/{page}', [AdminController::class, 'index']);
 
 Route::resource('/categories',CategoryController::class);
+=======
+// Route::get('/{page}', [AdminController::class, 'index']);
+Auth::routes();
+
+
+
