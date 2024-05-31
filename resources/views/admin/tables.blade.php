@@ -13,7 +13,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">التصنيفات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ إدارةالتصنيفات</span>
+							<h4 class="content-title mb-0 my-auto">الطاولات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ إدارةالطاولات</span>
 						</div>
 					</div>
 				</div>
@@ -69,14 +69,14 @@
 		<div class="card mg-b-20">
 			<div class="card-header pb-0">
 				<div class="d-flex justify-content-between">
-					<h4 class="card-title mg-b-0">جدول التصنيفات</h4>
+					<h4 class="card-title mg-b-0">جدول الطاولات</h4>
 					<i class="mdi mdi-dots-horizontal text-gray"></i>
 				</div>
 			</div>
 			<div class="col-sm-4 col-md-4">
 
 			<div class="card-body">
-				<a class="btn ripple btn-warning" data-target="#modaldemo6" data-toggle="modal" href="">إضافة تصنيف جديد</a>
+				<a class="btn ripple btn-warning" data-target="#modaldemo6" data-toggle="modal" href="{{ route('tables.create') }}">إضافة طاولة جديدة</a>
 				</div>
 			</div>
 
@@ -86,31 +86,37 @@
 						<thead>
 							<tr>
 								<th class="border-bottom-0">ID</th>
-								<th class="border-bottom-0">اسم التصنيف</th>
+								<th class="border-bottom-0">رقم الطاولة</th>
+								<th class="border-bottom-0">عدد المقاعد</th>
+                                <th class="border-bottom-0">حالة الطاولة</th>
 								<th class="border-bottom-0">الأدوات</th>
 							</tr>
 						</thead>
 						<tbody>
-
+                            @foreach($tables as $table)
 							<tr>
-								<td>1</td>
-								<td>تصنيف 1</td>
+								<td>{{$loop->iteration}}</td>
+								<td> {{$table->Number}}</td>
+								<td> {{$table->chair_number}}</td>
+								<td> {{$table->Is_available}}</td>
 								<td>
-                                    
+
 									<a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-										data-id=""
-										data-category_name=""
+										data-id="{{$table->id}}"
+										data-table_name="{{$table->Number}}"
+										data-chair_number="{{$table->chair_number}}"
+										data-table_status="{{$table->Is_available}}"
 										data-toggle="modal"
 										href="#exampleModal2" title="edit"><i class="las la-pen"></i></a>
 
 									<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-										data-id="" data-category_name=""
+										data-id="{{$table->id}}"
 										data-toggle="modal" href="#modaldemo9" title="delete"><i
 											class="las la-trash"></i></a>
 
 								</td>
 							</tr>
-
+                            @endforeach
 						</tbody>
 					</table>
 				</div>
@@ -127,14 +133,26 @@
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content modal-content-demo">
 					<div class="modal-header">
-						<h6 class="modal-title">إضافة تصنيف جديد</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+						<h6 class="modal-title">إضافة طاولة جديدة</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
 					</div>
 					<div class="modal-body">
-						<form action="" method="post">
+						<form action="{{ route('tables.store') }}" method="post">
 							@csrf
 							<div class="form-group">
-								<label for="exampleInputEmail1">اسم التصنيف</label>
-								<input type="text" class="form-control" id="" name="">
+								<label for="exampleInputEmail1">رقم الطاولة</label>
+								<input type="number" class="form-control" id="" name="Number">
+                            </div>
+                            <div class="form-group">
+								<label for="exampleInputEmail1">عدد الكراسي</label>
+								<input type="number" class="form-control" id="" name="chair_number">
+                            </div>
+                            <div class="form-group">
+								<label for="exampleInputEmail1">حالة الطاولة</label>
+                                <select name="Is_available" class="form-control" required>
+                                    <option value="available">available</option>
+                                    <option value="unavailable"> unavailable</option>
+                                </select>
+
 							</div>
 
 							<div class="modal-footer">
@@ -149,36 +167,49 @@
 <!--End Add modal -->
 
 
-</div>
-    <!-- edit modal -->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">تعديل التصنيف</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form action="" method="post" autocomplete="off">
-					@method('PUT')
-					@csrf
-					<div class="form-group">
-								<label for="exampleInputEmail1">اسم التصنيف</label>
-								<input type="text" class="form-control" id="" name="">
-					</div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">تعديل</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
-                </div>
-                </form>
+<!-- </div> -->
+<!-- edit modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">تعديل الطاولة</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+
+                <form action="{{ route('tables.update',$table->id) }}" method="post" autocomplete="off">
+                @method('PUT')
+                @csrf
+                <div class="form-group">
+                    <label for="exampleInputEmail1">رقم الطاولة</label>
+                    <input type="number" class="form-control" id="" name="Number" value="{{$table->Number}}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">عدد الكراسي</label>
+                    <input type="number" class="form-control" id="" name="chair_number" value="{{$table->chair_number}}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">حالة الطاولة</label>
+                    <select name="Is_available" class="form-control" required>
+                        <option value="available">available</option>
+                        <option value="unavailable"> unavailable</option>
+                    </select>
+                </div>
+
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">تعديل</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+            </div>
+            </form>
         </div>
     </div>
+</div>
+</div>
 <!-- end edit model -->
 
 
@@ -190,7 +221,7 @@
 				<h6 class="modal-title">Delete Company</h6><button aria-label="Close" class="close" data-dismiss="modal"
 					type="button"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<form action="" method="post">
+			<form action="{{ route('tables.destroy',$table->id) }}" method="post">
 				@method('DELETE')
 				@csrf
 				<div class="modal-body">
@@ -202,18 +233,17 @@
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
 					<button type="submit" class="btn btn-danger">حذف</button>
 				</div>
-		</div>
+
 		</form>
 	</div>
 </div>
+</div>
+
 <!-- end delete model -->
 
-				</div>
-				<!-- row closed -->
-			</div>
-			<!-- Container closed -->
-		</div>
-		<!-- main-content closed -->
+
+
+
 @endsection
 @section('js')
 <!-- Internal Data tables -->
@@ -240,11 +270,15 @@
     $('#exampleModal2').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
         var id = button.data('id')
-        var category_name = button.data('category_name')
+        var Number = button.data('Number')
+        var chair_number = button.data('chair_number')
+        var Is_available = button.data('Is_available')
 
         var modal = $(this)
         modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #category_name').val(category_name);
+        modal.find('.modal-body #Number').val(Number);
+        modal.find('.modal-body #chair_number').val(chair_number);
+        modal.find('.modal-body #Is_available').val(Is_available);
 
     })
 
@@ -257,7 +291,6 @@
         var Email = button.data('Email')
         var modal = $(this)
         modal.find('.modal-body #id').val(id);
-        //modal.find('.modal-body #').val();
     })
 
 </script>

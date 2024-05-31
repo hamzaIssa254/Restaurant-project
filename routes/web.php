@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TableController;
 
 
 /*
@@ -25,7 +26,7 @@ Auth::routes(['register' => false]); //إيقاف عمل راوت تسجيل ا�
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/{page}', [AdminController::class, 'index']);
-Auth::routes();
+// Route::get('/{page}', [AdminController::class, 'index']);
+Route::resource('tables',TableController::class);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
