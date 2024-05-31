@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
 
 
 /*
@@ -22,7 +24,9 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]); //إيقاف عمل راوت تسجيل الدخول
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('/{page}', [AdminController::class, 'index']);
+//Route::get('/{page}', [AdminController::class, 'index']);
+
+Route::resource('/categories',CategoryController::class);
