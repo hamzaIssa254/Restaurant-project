@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 
-use app\Http\Controllers\TableController;
+use App\Http\Controllers\TableController;
 
 
-use app\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CategoryController;
 
 
 
