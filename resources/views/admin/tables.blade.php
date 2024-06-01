@@ -103,9 +103,9 @@
 
 									<a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
 										data-id="{{$table->id}}"
-										data-table_name="{{$table->Number}}"
+										data-table_number="{{$table->Number}}"
 										data-chair_number="{{$table->chair_number}}"
-										data-table_status="{{$table->Is_available}}"
+										data-Is_available="{{$table->Is_available}}"
 										data-toggle="modal"
 										href="#exampleModal2" title="edit"><i class="las la-pen"></i></a>
 
@@ -218,16 +218,16 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content modal-content-demo">
 			<div class="modal-header">
-				<h6 class="modal-title">Delete Company</h6><button aria-label="Close" class="close" data-dismiss="modal"
+				<h6 class="modal-title"> Delete Table </h6><button aria-label="Close" class="close" data-dismiss="modal"
 					type="button"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<form action="{{ route('tables.destroy',$table->id) }}" method="post">
 				@method('DELETE')
 				@csrf
 				<div class="modal-body">
-					<p>Are you sure you want to delete?</p><br>
+					<p>?Are you sure you want to delete</p><br>
 					<input type="hidden" name="id" id="id" value="">
-					<input class="form-control" name="" id="" type="text" readonly>
+					<!-- <input class="form-control"   type="text" name="Number"   id="Number"  readonly> -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
@@ -288,7 +288,7 @@
     $('#modaldemo9').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
         var id = button.data('id')
-        var Email = button.data('Email')
+        var Number = button.data('Number')
         var modal = $(this)
         modal.find('.modal-body #id').val(id);
     })
