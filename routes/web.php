@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 
-use app/Http/Controllers/TableController;
+use app\Http\Controllers\TableController;
 
-=======
-use شpp\Http\Controllers\Admin\CategoryController;
+
+use app\Http\Controllers\Admin\CategoryController;
 
 
 
@@ -33,18 +33,18 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 
-// Route::get('/{page}', [AdminController::class, 'index']);
+
 Route::resource('tables',TableController::class);
 
 
-=======
 
-//Route::get('/{page}', [AdminController::class, 'index']);
+
+
 
 Route::resource('/categories',CategoryController::class);
-=======
-// Route::get('/{page}', [AdminController::class, 'index']);
-Auth::routes();
+
+
+
 
 
 
